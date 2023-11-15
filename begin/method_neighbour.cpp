@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../main.h"
 
 std::vector<int> method_neighbour(int N, const std::vector<std::vector<float>>& distance, int start_from)
 {
@@ -44,6 +44,6 @@ std::vector<int> method_neighbour(int N, const std::vector<std::vector<float>>& 
         //print_step(i + 1, trace, x, distance[current_town][randomresult], overall_distance);
     }
     overall_distance += distance[trace[0]][trace[N-1]];
-    std::cout << "Final: Trace " << to_string(trace) << " Distance " << overall_distance << "\n";
+    //std::cout << "Final: Trace " << to_string(trace) << " Distance " << overall_distance << "\n";
     return trace;
 }

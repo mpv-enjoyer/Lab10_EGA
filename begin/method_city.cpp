@@ -1,4 +1,4 @@
-#include "main.h"
+#include "../main.h"
 
 std::vector<int> method_city(int N, const std::vector<std::vector<float>>& distance, int start_from)
 {
@@ -86,6 +86,6 @@ std::vector<int> method_city(int N, const std::vector<std::vector<float>>& dista
     }
     overall_distance += distance[trace[0]][trace[N-1]];
 
-    std::cout << "Final: Trace " << to_string(trace) << " Distance " << overall_distance << "\n";
+    //std::cout << "Final: Trace " << to_string(trace) << " Distance " << overall_distance << "\n";
     return trace;
 }

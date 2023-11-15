@@ -9,6 +9,7 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${fileDirname}/*.cpp",
+				"${fileDirname}/begin/*.cpp",
 				"-o",
 				"${fileDirname}/lab10"
 			],

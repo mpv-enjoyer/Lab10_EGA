@@ -6,10 +6,18 @@
 #include <fstream>
 #include <algorithm>
 
+struct Parents
+{
+    int first;
+    int second;
+};
+
 //misc.cpp
 std::string to_string(const std::vector<int>& input);
+std::string to_string(const std::vector<std::vector<int>>& input);
 int random_int(int included_min, int included_max);
 float random_float(float included_min, float included_max);
+void random_shuffle(std::vector<int>& input);
 std::vector<std::vector<float>> read_matrix(std::string file_name);
 bool equal(const std::vector<int>& lbeing, const std::vector<int>& rbeing);
 void fix_code_offset(std::vector<int>& being);
@@ -24,3 +32,4 @@ std::vector<std::vector<int>> begin_method_neighbour(const std::vector<std::vect
 //method_*.cpp
 std::vector<int> method_city(int N, const std::vector<std::vector<float>>& distance, int start_from);
 std::vector<int> method_neighbour(int N, const std::vector<std::vector<float>>& distance, int start_from);
+

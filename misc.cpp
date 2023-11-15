@@ -10,6 +10,15 @@ std::string to_string(const std::vector<int>& input)
     output.append("]");
     return output;
 }
+std::string to_string(const std::vector<std::vector<int>>& input)
+{
+    std::string output;
+    for (int i = 0; i < input.size(); i++)
+    {
+        output.append(to_string(input[i]) + '\n');
+    }
+    return output;
+}
 int random_int(int included_min, int included_max)
 {
     static std::default_random_engine rng(time(NULL));
@@ -23,6 +32,12 @@ float random_float(float included_min, float included_max)
     std::uniform_real_distribution<float> dist(included_min, included_max); 
     dist(rng);
     return dist(rng); 
+}
+void random_shuffle(std::vector<int>& input)
+{
+    static unsigned seed = time(NULL);
+    static std::default_random_engine random = std::default_random_engine(seed);
+    std::shuffle(input.begin(), input.end(), random);
 }
 std::vector<std::vector<float>> read_matrix(std::string file_name)
 {
@@ -141,4 +156,11 @@ void fix_uncontrolled(std::vector<std::vector<int>>& population)
         }
         regenerate = find_unfixed(population);
     } while (regenerated);
+}
+int hamming_distance(const std::vector<int>& left, const std::vector<int>& right)
+{
+    int output = 0;
+    for (int i = 0; i < left.size(); i++)
+    {
+    }
 }

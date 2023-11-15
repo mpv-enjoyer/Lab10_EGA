@@ -38,8 +38,8 @@ int main()
         current_population = begin_controlled(code_size, population_size);
         break;
     }
-    for (int i = 0; i < population_size; i++)
-    {
-        std::cout << to_string(current_population[i]) << "\n";
-    }
+    std::cout << to_string(current_population);
+    std::cout << "\n1) Случайный\n";
+    int parents_method;
+    std::cin >> parents_method;
 }
