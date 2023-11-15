@@ -6,6 +6,7 @@ int main()
     int city_count = distances.size();
     /* Чтобы избежать повторяющихся кодировок, введем правила:
     - Начинаем с 0 города
+    - Первый город в перестановках по номеру меньше последнего
     Таким образом, длина кодировки это (city_count - 1) */
     int population_size; 
     std::cout << "Введите величину популяции: ";
@@ -37,6 +38,10 @@ int main()
     default:
         current_population = begin_controlled(code_size, population_size);
         break;
+    }
+    for (int i = 0; i < population_size; i++)
+    {
+        unify_code(current_population[i]);
     }
     std::cout << to_string(current_population);
     std::cout << "\n1) Случайный\n";

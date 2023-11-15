@@ -22,6 +22,8 @@ std::vector<std::vector<float>> read_matrix(std::string file_name);
 bool equal(const std::vector<int>& lbeing, const std::vector<int>& rbeing);
 void fix_code_offset(std::vector<int>& being);
 void fix_uncontrolled(std::vector<std::vector<int>>& population);
+void unify_code(std::vector<int>& being);
+int hamming_distance(const std::vector<int>& unified_left, const std::vector<int>& unified_right);
 
 //begin.cpp
 std::vector<std::vector<int>> begin_uncontrolled(int code_size, int population_size);

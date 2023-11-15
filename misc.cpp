@@ -157,10 +157,23 @@ void fix_uncontrolled(std::vector<std::vector<int>>& population)
         regenerate = find_unfixed(population);
     } while (regenerated);
 }
-int hamming_distance(const std::vector<int>& left, const std::vector<int>& right)
+void unify_code(std::vector<int>& being)
+{
+    if (being[0] < being[being.size() - 1])
+    {
+        return;
+    }
+    for (int i = 0; i < being.size() / 2; i++)
+    {
+        std::iter_swap(being.begin() + i, being.end() - i - 1);
+    }
+}
+int hamming_distance(const std::vector<int>& unified_left, const std::vector<int>& unified_right)
 {
     int output = 0;
-    for (int i = 0; i < left.size(); i++)
+    for (int i = 0; i < unified_left.size(); i++)
     {
+        output += unified_left[i] == unified_right[i] ? 0 : 1;
     }
+    return output;
 }
