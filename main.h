@@ -24,6 +24,7 @@ void fix_code_offset(std::vector<int>& being);
 void fix_uncontrolled(std::vector<std::vector<int>>& population);
 void unify_code(std::vector<int>& being);
 int hamming_distance(const std::vector<int>& unified_left, const std::vector<int>& unified_right);
+float get_distance(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance);
 
 //begin.cpp
 std::vector<std::vector<int>> begin_uncontrolled(int code_size, int population_size);
@@ -35,3 +36,9 @@ std::vector<std::vector<int>> begin_method_neighbour(const std::vector<std::vect
 std::vector<int> method_city(int N, const std::vector<std::vector<float>>& distance, int start_from);
 std::vector<int> method_neighbour(int N, const std::vector<std::vector<float>>& distance, int start_from);
 
+//parents.cpp
+Parents parents_random(int population_size);
+Parents parents_inbreeding(const std::vector<std::vector<int>>& population);
+Parents parents_outbreeding(const std::vector<std::vector<int>>& population);
+Parents parents_positive_mating(const std::vector<std::vector<int>>& population, const std::vector<std::vector<float>>& distance);
+Parents parents_negative_mating(const std::vector<std::vector<int>>& population, const std::vector<std::vector<float>>& distance);

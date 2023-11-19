@@ -177,3 +177,13 @@ int hamming_distance(const std::vector<int>& unified_left, const std::vector<int
     }
     return output;
 }
+float get_distance(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance)
+{
+    float output = 0;
+    for (int i = 0; i < trace.size() - 1; i++)
+    {
+        output += distance[i][i+1];
+    }
+    output += distance[0][trace.size() - 1];
+    return output;
+}
