@@ -47,9 +47,63 @@ int main()
     std::cout << "\n1) Random\n"
     "2) Inbreeding\n"
     "3) Outbreeding\n"
-    "4) Positive associative mating\n"
+    "4) Positive associative mating (default)\n"
     "5) Negative associative mating\n"
     "Select parents generation method: ";
     int parents_method;
     std::cin >> parents_method;
+
+    std::cout << "\n1) Consecutive\n"
+    "2) Partial\n"
+    "3) Cyclic\n"
+    "Select crossover method: ";
+    int crossover_method;
+    std::cin >> crossover_method;
+
+    std::vector<std::vector<int>> current_population_children;
+    for (int i = 0; i < population_size; i++)
+    {
+        Parents current_parents;
+        switch (parents_method)
+        {
+        case 1:
+            current_parents = parents_random(population_size);
+            break;
+        case 2:
+            current_parents = parents_inbreeding(current_population);
+            break;
+        case 3:
+            current_parents = parents_outbreeding(current_population);
+            break;
+        case 4:
+            current_parents = parents_positive_mating(current_population, distances);
+            break;
+        case 5:
+            current_parents = parents_negative_mating(current_population, distances);
+            break;
+        default:
+            current_parents = parents_positive_mating(current_population, distances);
+            break;
+        }
+        std::vector<int> parent_left = current_population[current_parents.first];
+        std::vector<int> parent_right = current_population[current_parents.second];
+        std::cout << to_string(parent_left) + " + " + to_string(parent_right) << " = ";
+        switch (crossover_method)
+        {
+        case 1:
+            current_population_children.push_back(crossover_consecutive(parent_left, parent_right)); //поломан
+            break;
+        case 2:
+            current_population_children.push_back(crossover_partial(parent_left, parent_right)); //поломан
+            break;
+        case 3:
+            current_population_children.push_back(crossover_cyclic(parent_left, parent_right)); //работает
+            break;
+        default:
+            current_population_children.push_back(crossover_consecutive(parent_left, parent_right));
+            break;
+        }
+        std::cout << to_string(current_population_children[current_population_children.size() - 1]) << "\n";
+    }
+    
 }

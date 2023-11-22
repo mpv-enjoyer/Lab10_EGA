@@ -8,6 +8,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
+				"-Wall",
+				"-Wextra",
+				"-pedantic",
 				"${fileDirname}/*.cpp",
 				"${fileDirname}/begin/*.cpp",
 				"-o",

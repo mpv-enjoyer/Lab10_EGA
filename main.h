@@ -42,3 +42,8 @@ Parents parents_inbreeding(const std::vector<std::vector<int>>& population);
 Parents parents_outbreeding(const std::vector<std::vector<int>>& population);
 Parents parents_positive_mating(const std::vector<std::vector<int>>& population, const std::vector<std::vector<float>>& distance);
 Parents parents_negative_mating(const std::vector<std::vector<int>>& population, const std::vector<std::vector<float>>& distance);
+
+//crossover.cpp
+std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included = -1, int right_cut_included = -1);
+std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included = -1, int right_cut_included = -1);
+std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right);
