@@ -48,5 +48,10 @@ std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector
 std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included = -1, int right_cut_included = -1);
 std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right, bool testing = false);
 
+//mutation.cpp
+std::vector<int> mutation_inversion(std::vector<int> code);
+std::vector<int> mutation_saltation(std::vector<int> code);
+std::vector<int> mutation_point(std::vector<int> code);
+
 //tests.cpp
 void begin_all_tests();

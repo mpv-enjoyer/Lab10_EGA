@@ -34,7 +34,6 @@ std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector
     {
         if (parent_right[i] != -1)
         {
-            std::cout << "current output index " << current_index << " right index " << i << " value " << parent_right[i] << "\n";
             output[current_index] = parent_right[i];
             current_index = (current_index + 1) % parent_size;
         }

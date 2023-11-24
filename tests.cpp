@@ -19,5 +19,11 @@ void begin_all_tests()
     actual = crossover_cyclic({ 5, 7, 3, 4, 1, 2, 9, 8, 6 }, { 4, 7, 2, 1, 6, 3, 8, 9, 5 }, true);
     std::cout << "3) [cyclic] Expected: " << to_string(expected) << " Actual: " << to_string(actual) << "\n";
 
+    std::cout << "4) [point mutation] Actual: " << to_string(mutation_point({ 1, 2, 3, 4, 5, 6, 7, 8 })) << "\n";
+
+    std::cout << "5) [saltation mutation] Actual: " << to_string(mutation_saltation({ 1, 2, 3, 4, 5, 6, 7, 8 })) << "\n";
+
+    std::cout << "6) [inversion mutation] Actual: " << to_string(mutation_inversion({ 1, 2, 3, 4, 5, 6, 7, 8 })) << "\n";
+
     std::cout << "TESTS END.\n";
 }
