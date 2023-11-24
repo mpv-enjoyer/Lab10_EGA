@@ -8,9 +8,9 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"-Wall",
-				"-Wextra",
-				"-pedantic",
+				//"-Wall",
+				//"-Wextra",
+				//"-pedantic",
 				"${fileDirname}/*.cpp",
 				"${fileDirname}/begin/*.cpp",
 				"-o",

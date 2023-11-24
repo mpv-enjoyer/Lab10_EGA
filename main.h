@@ -46,4 +46,7 @@ Parents parents_negative_mating(const std::vector<std::vector<int>>& population,
 //crossover.cpp
 std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included = -1, int right_cut_included = -1);
 std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included = -1, int right_cut_included = -1);
-std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right);
+std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right, bool testing = false);
+
+//tests.cpp
+void begin_all_tests();

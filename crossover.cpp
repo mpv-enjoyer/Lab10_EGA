@@ -44,7 +44,7 @@ std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector
 std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int> parent_right, int left_cut_included, int right_cut_included)
 {
     int parent_size = parent_left.size();
-    std::vector<int> transposition_reverse = std::vector<int>(parent_size, -1);
+    std::vector<int> transposition = std::vector<int>(parent_size, -1);
     std::vector<int> output = std::vector<int>(parent_size);
     std::vector<int> numbers = std::vector<int>(parent_size - 2);
     //По бокам оставляем хотя бы 1 изначальный элемент
@@ -59,37 +59,41 @@ std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int
     }
     left_cut_included = left_cut_included == -1 ? numbers[0] : left_cut_included;
     right_cut_included = right_cut_included == -1 ? numbers[1] : right_cut_included;
+    //Элементы вектора transposition имеют значение:
+    //i: i + 1 переходит в transposition[i]
+    //Делаем так потому что в самой кодировке всегда отсутствует 0.
     for (int i = left_cut_included; i <= right_cut_included; i++)
     {
         output[i] = parent_left[i];
-        auto found = std::find(transposition_reverse.begin() + left_cut_included, transposition_reverse.begin() + right_cut_included + 1, parent_right[i]);
-        if (found != transposition_reverse.begin() + right_cut_included + 1)
+        auto found = std::find(transposition.begin(), transposition.end(), parent_left[i]);
+        if (found != transposition.end())
         {
-            int index = std::distance(transposition_reverse.begin(), found) + left_cut_included;
-            transposition_reverse[index] = parent_left[i];
+            int index = std::distance(transposition.begin(), found);
+            transposition[index] = parent_right[i];
             continue;
         }
-        if (transposition_reverse[parent_left[i]] != -1)
+        if (transposition[parent_right[i] - 1] != -1)
         {
-            transposition_reverse[i] = transposition_reverse[parent_left[i]];
+            transposition[parent_left[i] - 1] = transposition[parent_right[i] - 1];
             continue;
         }
-        transposition_reverse[parent_right[i]] = parent_left[i];
+        transposition[parent_left[i] - 1] = parent_right[i];
     }
+    std::cout << "transposition_is " << to_string(transposition) << "\n";
     for (int i = 0; i < left_cut_included; i++)
     {
-        int value = transposition_reverse[parent_right[i]];
+        int value = transposition[parent_right[i] - 1];
         output[i] = value == -1 ? parent_right[i] : value;
     }
     for (int i = right_cut_included + 1; i < parent_size; i++)
     {
-        int value = transposition_reverse[parent_right[i]];
+        int value = transposition[parent_right[i] - 1];
         output[i] = value == -1 ? parent_right[i] : value;
     }
     return output;
 }
 
-std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right)
+std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int> parent_right, bool testing)
 {
     int parent_size = parent_left.size();
     std::vector<std::vector<int>> cycles = std::vector<std::vector<int>>();
@@ -132,7 +136,7 @@ std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int>
     std::vector<int> output = std::vector<int>(parent_size);
     for (int i = 0; i < cycles.size(); i++)
     {
-        bool pick_from_left = random_int(0, 1);
+        bool pick_from_left = testing ? (i + 1) % 2 : random_int(0, 1);
         for (int j = 0; j < cycles[i].size(); j++)
         {
             int index = cycles[i][j];

@@ -2,6 +2,7 @@
 
 int main()
 {
+    begin_all_tests();
     std::vector<std::vector<float>> distances = read_matrix("matrix_input.txt");
     int city_count = distances.size();
     /* Чтобы избежать повторяющихся кодировок, введем правила:
