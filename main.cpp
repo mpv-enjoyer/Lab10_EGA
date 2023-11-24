@@ -92,13 +92,13 @@ int main()
         switch (crossover_method)
         {
         case 1:
-            current_population_children.push_back(crossover_consecutive(parent_left, parent_right)); //поломан
+            current_population_children.push_back(crossover_consecutive(parent_left, parent_right));
             break;
         case 2:
-            current_population_children.push_back(crossover_partial(parent_left, parent_right)); //поломан
+            current_population_children.push_back(crossover_partial(parent_left, parent_right));
             break;
         case 3:
-            current_population_children.push_back(crossover_cyclic(parent_left, parent_right)); //работает
+            current_population_children.push_back(crossover_cyclic(parent_left, parent_right));
             break;
         default:
             current_population_children.push_back(crossover_consecutive(parent_left, parent_right));

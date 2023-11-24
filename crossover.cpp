@@ -30,10 +30,11 @@ std::vector<int> crossover_consecutive(std::vector<int> parent_left, std::vector
         parent_right[index] = -1;
     }
     int current_index = right_cut_included + 1;
-    for (int i = start_from + 1; i != start_from; i = (i + 1) % parent_size)
+    for (int i = (start_from + 1) % parent_size; i != start_from; i = (i + 1) % parent_size)
     {
         if (parent_right[i] != -1)
         {
+            std::cout << "current output index " << current_index << " right index " << i << " value " << parent_right[i] << "\n";
             output[current_index] = parent_right[i];
             current_index = (current_index + 1) % parent_size;
         }
@@ -79,7 +80,6 @@ std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int
         }
         transposition[parent_left[i] - 1] = parent_right[i];
     }
-    std::cout << "transposition_is " << to_string(transposition) << "\n";
     for (int i = 0; i < left_cut_included; i++)
     {
         int value = transposition[parent_right[i] - 1];
