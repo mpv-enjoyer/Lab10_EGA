@@ -18,13 +18,16 @@ std::string to_string(const std::vector<std::vector<int>>& input);
 int random_int(int included_min, int included_max);
 float random_float(float included_min, float included_max);
 void random_shuffle(std::vector<int>& input);
+void random_shuffle(std::vector<std::vector<int>>& input);
 std::vector<std::vector<float>> read_matrix(std::string file_name);
 bool equal(const std::vector<int>& lbeing, const std::vector<int>& rbeing);
 void fix_code_offset(std::vector<int>& being);
 void fix_uncontrolled(std::vector<std::vector<int>>& population);
 void unify_code(std::vector<int>& being);
 int hamming_distance(const std::vector<int>& unified_left, const std::vector<int>& unified_right);
-float get_distance(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance);
+float get_distance_unified(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance);
+std::vector<int> exclude_best_unified_code(std::vector<std::vector<std::vector<int>>> codes, std::vector<std::vector<float>> distance);
+void sort_by_distance_descending(std::vector<std::vector<int>>& code, const std::vector<std::vector<float>>& distance);
 
 //begin.cpp
 std::vector<std::vector<int>> begin_uncontrolled(int code_size, int population_size);
@@ -52,6 +55,11 @@ std::vector<int> crossover_cyclic(std::vector<int> parent_left, std::vector<int>
 std::vector<int> mutation_inversion(std::vector<int> code);
 std::vector<int> mutation_saltation(std::vector<int> code);
 std::vector<int> mutation_point(std::vector<int> code);
+
+//selection.cpp
+std::vector<std::vector<int>> selection_proportional(std::vector<std::vector<int>> reproduction_set, const std::vector<std::vector<float>>& distance, int output_size);
+std::vector<std::vector<int>> selection_rank(std::vector<std::vector<int>> reproduction_set, const std::vector<std::vector<float>>& distance, int output_size);
+std::vector<std::vector<int>> selection_beta_tourney(std::vector<std::vector<int>> reproduction_set, const std::vector<std::vector<float>>& distance, int output_size);
 
 //tests.cpp
 void begin_all_tests();

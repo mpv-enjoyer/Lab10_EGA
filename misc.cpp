@@ -39,6 +39,12 @@ void random_shuffle(std::vector<int>& input)
     static std::default_random_engine random = std::default_random_engine(seed);
     std::shuffle(input.begin(), input.end(), random);
 }
+void random_shuffle(std::vector<std::vector<int>>& input)
+{
+    static unsigned seed = time(NULL);
+    static std::default_random_engine random = std::default_random_engine(seed);
+    std::shuffle(input.begin(), input.end(), random);
+}
 std::vector<std::vector<float>> read_matrix(std::string file_name)
 {
     std::ifstream matrix_input(file_name);
@@ -177,13 +183,53 @@ int hamming_distance(const std::vector<int>& unified_left, const std::vector<int
     }
     return output;
 }
-float get_distance(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance)
+float get_distance_unified(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance)
 {
-    float output = 0;
+    float output = distance[0][trace[0]] + distance[trace[trace.size() - 1]][0];
     for (int i = 0; i < trace.size() - 1; i++)
     {
-        output += distance[i][i+1];
+        output += distance[trace[i]][trace[i+1]];
     }
-    output += distance[0][trace.size() - 1];
     return output;
+}
+std::vector<int> exclude_best_unified_code(std::vector<std::vector<std::vector<int>>>& codes, std::vector<std::vector<float>> distance)
+{
+    std::vector<int> output;
+    float min = __FLT_MAX__;
+    int mini = 0;
+    int minj = 0;
+    for (int i = 0; i < codes.size(); i++)
+    {
+        for (int j = 0; j < codes[i].size(); j++)
+        {
+            float current = get_distance_unified(codes[i][j], distance);
+            if (current < min)
+            {
+                output = codes[i][j];
+                min = current;
+                mini = i;
+                minj = j;
+            }
+        }
+    }
+    codes[mini].erase(codes[mini].begin() + minj);
+    return output;
+}
+void sort_by_distance_descending(std::vector<std::vector<int>>& code, const std::vector<std::vector<float>>& distance)
+{
+    for (int i = 0; i < code.size() - 1; i++)
+    {
+        float current_max = get_distance_unified(code[i], distance);
+        int current_max_index = i;
+        for (int j = i + 1; j < code.size(); j++)
+        {
+            float current_distance = get_distance_unified(code[j], distance);
+            if (current_distance > current_max)
+            {
+                current_max_index = j;
+                current_max = current_distance;
+            }
+        }
+        std::swap(code[i], code[current_max_index]);
+    }
 }
