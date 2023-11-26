@@ -1,4 +1,5 @@
 #pragma once
+#define _GLIBCXX_DEBUG
 #include <random>
 #include <vector>
 #include <iostream>
@@ -13,8 +14,8 @@ struct Parents
 };
 
 //misc.cpp
-std::string to_string(const std::vector<int>& input);
-std::string to_string(const std::vector<std::vector<int>>& input);
+std::string to_string(const std::vector<int>& input, const std::vector<std::vector<float>>* distance = nullptr);
+std::string to_string(const std::vector<std::vector<int>>& input, const std::vector<std::vector<float>>* distance = nullptr);
 int random_int(int included_min, int included_max);
 float random_float(float included_min, float included_max);
 void random_shuffle(std::vector<int>& input);
@@ -26,7 +27,8 @@ void fix_uncontrolled(std::vector<std::vector<int>>& population);
 void unify_code(std::vector<int>& being);
 int hamming_distance(const std::vector<int>& unified_left, const std::vector<int>& unified_right);
 float get_distance_unified(const std::vector<int>& trace, const std::vector<std::vector<float>>& distance);
-std::vector<int> exclude_best_unified_code(std::vector<std::vector<std::vector<int>>> codes, std::vector<std::vector<float>> distance);
+float get_distance_unified(const std::vector<int>& trace, const std::vector<std::vector<float>>* distance);
+std::vector<int> exclude_best_unified_code(std::vector<std::vector<int>>& codes_left, std::vector<std::vector<int>>& codes_right, std::vector<std::vector<float>> distance);
 void sort_by_distance_descending(std::vector<std::vector<int>>& code, const std::vector<std::vector<float>>& distance);
 
 //begin.cpp

@@ -2,7 +2,7 @@
 
 std::vector<int> mutation_point(std::vector<int> code)
 {
-    int left_point = random_int(0, code.size() - 1);
+    int left_point = random_int(0, code.size() - 2);
     std::swap(code[left_point], code[left_point + 1]);
     return code;
 }

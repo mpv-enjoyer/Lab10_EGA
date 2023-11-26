@@ -65,29 +65,33 @@ std::vector<int> crossover_partial(std::vector<int> parent_left, std::vector<int
     for (int i = left_cut_included; i <= right_cut_included; i++)
     {
         output[i] = parent_left[i];
-        auto found = std::find(transposition.begin(), transposition.end(), parent_left[i]);
-        if (found != transposition.end())
-        {
-            int index = std::distance(transposition.begin(), found);
-            transposition[index] = parent_right[i];
-            continue;
-        }
-        if (transposition[parent_right[i] - 1] != -1)
-        {
-            transposition[parent_left[i] - 1] = transposition[parent_right[i] - 1];
-            continue;
-        }
         transposition[parent_left[i] - 1] = parent_right[i];
     }
     for (int i = 0; i < left_cut_included; i++)
     {
-        int value = transposition[parent_right[i] - 1];
-        output[i] = value == -1 ? parent_right[i] : value;
+        int value = parent_right[i];
+        for (;;)
+        {
+            if (transposition[value - 1] == -1)
+            {
+                break;
+            }
+            value = transposition[value - 1];
+        }
+        output[i] = value;
     }
     for (int i = right_cut_included + 1; i < parent_size; i++)
     {
-        int value = transposition[parent_right[i] - 1];
-        output[i] = value == -1 ? parent_right[i] : value;
+        int value = parent_right[i];
+        for (;;)
+        {
+            if (transposition[value - 1] == -1)
+            {
+                break;
+            }
+            value = transposition[value - 1];
+        }
+        output[i] = value;
     }
     return output;
 }

@@ -1,21 +1,25 @@
 #include "main.h"
 
-std::string to_string(const std::vector<int>& input)
+std::string to_string(const std::vector<int>& input, const std::vector<std::vector<float>>* distance)
 {
     std::string output = "[ ";
     for (int i = 0; i < input.size(); i++)
     {
-        output.append(std::to_string(input[i]) + " ");    
+        output.append(std::to_string(input[i]) + " ");
     }
     output.append("]");
+    if (distance)
+    {
+        output.append(" Distance: " + std::to_string(get_distance_unified(input, distance)));
+    }
     return output;
 }
-std::string to_string(const std::vector<std::vector<int>>& input)
+std::string to_string(const std::vector<std::vector<int>>& input, const std::vector<std::vector<float>>* distance)
 {
     std::string output;
     for (int i = 0; i < input.size(); i++)
     {
-        output.append(to_string(input[i]) + '\n');
+        output.append(to_string(input[i], distance) + '\n'); 
     }
     return output;
 }
@@ -192,27 +196,53 @@ float get_distance_unified(const std::vector<int>& trace, const std::vector<std:
     }
     return output;
 }
-std::vector<int> exclude_best_unified_code(std::vector<std::vector<std::vector<int>>>& codes, std::vector<std::vector<float>> distance)
+float get_distance_unified(const std::vector<int>& trace, const std::vector<std::vector<float>>* distance)
+{
+    float output = (*distance)[0][trace[0]] + (*distance)[trace[trace.size() - 1]][0];
+    for (int i = 0; i < trace.size() - 1; i++)
+    {
+        output += (*distance)[trace[i]][trace[i+1]];
+    }
+    return output;
+}
+std::vector<int> exclude_best_unified_code(std::vector<std::vector<int>>& codes_left, std::vector<std::vector<int>>& codes_right, std::vector<std::vector<float>> distance)
 {
     std::vector<int> output;
     float min = __FLT_MAX__;
     int mini = 0;
     int minj = 0;
-    for (int i = 0; i < codes.size(); i++)
+    int i = 0;
+    for (int j = 0; j < codes_left.size(); j++)
     {
-        for (int j = 0; j < codes[i].size(); j++)
+        float current = get_distance_unified(codes_left[j], distance);
+        if (current < min)
         {
-            float current = get_distance_unified(codes[i][j], distance);
-            if (current < min)
-            {
-                output = codes[i][j];
-                min = current;
-                mini = i;
-                minj = j;
-            }
+            output = codes_left[j];
+            min = current;
+            mini = i;
+            minj = j;
         }
     }
-    codes[mini].erase(codes[mini].begin() + minj);
+    i = 1;
+    for (int j = 0; j < codes_right.size(); j++)
+    {
+        float current = get_distance_unified(codes_right[j], distance);
+        if (current < min)
+        {
+            output = codes_right[j];
+            min = current;
+            mini = i;
+            minj = j;
+        }
+    }
+    if (mini == 0)
+    {
+        codes_left.erase(codes_left.begin() + minj);
+    }
+    else
+    {
+        codes_right.erase(codes_right.begin() + minj);
+    }
     return output;
 }
 void sort_by_distance_descending(std::vector<std::vector<int>>& code, const std::vector<std::vector<float>>& distance)

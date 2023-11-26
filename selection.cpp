@@ -36,8 +36,8 @@ std::vector<std::vector<int>> selection_rank(std::vector<std::vector<int>> repro
     int sum = 0;
     for (int rank = 0; rank < size; rank++)
     {
-        possibilities.push_back(nminus - (nplus - nminus) * rank / (size - 1)); 
-        sum += nminus - (nplus - nminus) * rank / (size - 1);
+        possibilities.push_back(nminus + (nplus - nminus) * rank / (size - 1)); 
+        sum += nminus + (nplus - nminus) * rank / (size - 1);
     }
     std::vector<std::vector<int>> output;
     while (output.size() != output_size)
